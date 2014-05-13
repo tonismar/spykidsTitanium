@@ -1,5 +1,8 @@
 function ocorrencia(occ) {
-var self = Ti.UI.createWindow();
+var self = Ti.UI.createWindow({
+	orientation: 'vertical',
+	title: 'SpyKids'
+});
 var view = Ti.UI.createView();
 
 var avatar = Ti.UI.createImageView({

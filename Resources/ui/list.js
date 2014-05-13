@@ -4,9 +4,12 @@ exports.launch = function() {
 	var data = [];
 	var defaultFontSize = Ti.Platform.name == 'android' ? 16 : 14;
 	var tableView = Ti.UI.createTableView({
-		backgroundColor: 'transparent'
+		backgroundColor: 'transparent',
+		headerTitle: 'Ocorrências'
 	});
-	var app = Ti.UI.createWindow();
+	var app = Ti.UI.createWindow({
+		title: 'SpyKids'
+	});
 	var client = Ti.Network.createHTTPClient();
 	var ocorrencias = [];
 	
@@ -43,7 +46,7 @@ exports.launch = function() {
 			ocorrencias.push(protoOcorrencia);
 			 
 			var row = Ti.UI.createTableViewRow({
-				height: 40,
+				height: 50,
 				title: 'Ocorrências',
 				id: i
 			});
@@ -58,7 +61,7 @@ exports.launch = function() {
 			var dia = Ti.UI.createLabel({
 				text: strDia.text + json.ocorrencias[i].dia,
 				left: 4,
-				top: 17
+				top: 19
 			});
 			row.add(dia);
 			
