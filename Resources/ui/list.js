@@ -59,16 +59,16 @@ exports.launch = function() {
 			row.add(user);
 
 			var dia = Ti.UI.createLabel({
-				text: strDia.text + json.ocorrencias[i].dia,
+				text: strDia.text + formatDate(json.ocorrencias[i].dia),
 				left: 4,
-				top: 19
+				top: 22
 			});
 			row.add(dia);
 			
 			var hora = Ti.UI.createLabel({
 				text: strHora.text + json.ocorrencias[i].hora,
 				left: 164,
-				top: 17
+				top: 22
 			});
 			row.add(hora);
 
@@ -94,3 +94,8 @@ exports.launch = function() {
 	client.send();
 	app.open();
 };
+
+function formatDate(data){
+	var d = data.split('-');
+	return d[2]+'/'+d[1]+'/'+d[0];
+}

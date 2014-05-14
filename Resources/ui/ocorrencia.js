@@ -14,17 +14,24 @@ var avatar = Ti.UI.createImageView({
 });
 
 var user = Ti.UI.createLabel({
-	text : occ.getId(),
+	text : occ.getUser(),
 	top : 160,
-	//left : 145,
 	center : true,
-	textAlign : 'center'
+	textAlign : 'center',
+	font : { fontWeight: 'bold' }
+});
+
+var detail = Ti.UI.createLabel({
+	text: formatDate(occ.getDia()) + ' - ' + occ.getHora(),
+	top: 180,
+	font: { fontSize: 10 },
+	center: true,
+	textAlign: 'center' 
 });
 
 var message = Ti.UI.createLabel({
 	text : occ.getMensagem(),
 	top : 170,
-	//left : 80,
 	width: 140,
 	height: 140,
 	center: true,
@@ -40,6 +47,7 @@ var btn = Ti.UI.createButton({
 
 view.add(avatar);
 view.add(user);
+view.add(detail);
 view.add(message);
 view.add(btn);
 self.add(view); 
@@ -48,3 +56,8 @@ return self;
 }
 
 module.exports = ocorrencia;
+
+function formatDate(data){
+	var d = data.split('-');
+	return d[2]+'/'+d[1]+'/'+d[0];
+}
