@@ -86,7 +86,7 @@ exports.launch = function() {
 	});
 	
 	client.setTimeout(30000);
-	client.open('GET', 'http://spykids.bl.ee/list.php?list=new');
+	client.open('GET', 'http://spykids-tonismar.rhcloud.com/list.php?list=new');
 	
 	// url acesso local, necessita editar 
 	// o arquivo /etc/hosts do emulardor
