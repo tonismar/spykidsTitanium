@@ -1,6 +1,7 @@
 // return the list ui 
 exports.launch = function() {
 	
+	var SECS = 4;
 	var data = [];
 	var defaultFontSize = Ti.Platform.name == 'android' ? 16 : 14;
 	var tableView = Ti.UI.createTableView({
@@ -85,12 +86,25 @@ exports.launch = function() {
 		Ocorrencia.open();
 	});
 	
+	app.addEventListener('open', function(e) {
+		var now = new Date().getTime();
+		var delta = new Date( now + (SECS * 1000));
+		var deltaMS = delta - now;
+		
+		var intent = Ti.Android.createServiceIntent({
+			url: 'service/service.js'
+		});
+		intent.putExtra('interval', SECS * 1000);
+		intent.putExtra('message', 'Testing...');
+		Ti.Android.startService(intent);
+	});
+	
 	client.setTimeout(30000);
 	client.open('GET', 'http://spykids-tonismar.rhcloud.com/list.php?list=new');
 	
-	// url acesso local, necessita editar 
-	// o arquivo /etc/hosts do emulardor
-	//client.open('GET', 'http://spykids.local/list.php?list=new');
+	/* url acesso local, necessita editar 
+	 o arquivo /etc/hosts do emulardor */
+	client.open('GET', 'http://spykids.local/list.php?list=new');
 	client.send();
 	app.open();
 };

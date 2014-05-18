@@ -1,4 +1,4 @@
-if (!Ti.App.Properties.hasProperty('notification')) {
+if (!Ti.App.Properties.hasProperty('notificationCount')) {
 	Ti.App.Properties.setInt('notificationCount', 0);
 } else {
 	Ti.App.Properties.removeProperty('notificationCount');
