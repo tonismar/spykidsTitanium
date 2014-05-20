@@ -3,13 +3,16 @@ if (!Ti.App.Properties.hasProperty('notificationCount')) {
 } else {
 	Ti.App.Properties.removeProperty('notificationCount');
 	
-	var activity = Ti.Android.currentActivity;
+	var service = Ti.Android.currentService;
+	//var intent = service.intent;
 	var intent = Ti.Android.createIntent({
 		action: Ti.Android.ACTION_MAIN,
 		url: 'app.js',
-		flag: Ti.Android.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED | Ti.Android.FLAG_ACTIVITY_SINGLE_TOP
+		flags: Ti.Android.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED | Ti.Android.FLAG_ACTIVITY_SINGLE_TOP
 	});
 	intent.addCategory(Ti.Android.CATEGORY_LAUNCHER);
+	
+	var activity = Ti.Android.currentActivity;
 	
 	var pending = Ti.Android.createPendingIntent({
 		activity: activity,
@@ -20,18 +23,31 @@ if (!Ti.App.Properties.hasProperty('notificationCount')) {
 	
 	var notification = Ti.Android.createNotification({
 		contentIntent: pending,
-		contentTitle: 'Test',
-		contentText: 'test',
-		ticketText: 'Hello World, service',
+		contentTitle: 'Spykdis',
+		contentText: 'Novas occ. encontradas.',
 		when: new Date().getTime(),
 		flags: Ti.Android.ACTION_DEFAULT | Ti.Android.FLAG_AUTO_CANCEL | Ti.Android.FLAG_SHOW_LIGHTS
 	});
 	
-	Ti.Android.NotificationManager.notify(1, notification);
+	service.addEventListener('resume', function(e) {
+		var client = Ti.Network.createHTTPClient();
+		client.onerror = function(e) {
+			notification.setContentText('Erro ao recuperar ocorrências');
+			Ti.Android.NotificationManager.notify(1, notification);
+		};
+		
+		client.onload = function() {
+			json = JSON.parse(this.responseText);
+			
+			if (json.ocorrencias.length > 0 ) {
+				notification.setContentText('Novas ocorrências encontradas.');
+				Ti.Android.NotificationManager.notify(1, notification);
+			}
+		};
+		
+		client.open('GET', 'http://spykids-tonismar.rhcloud.com/list.php?list=new');
+		client.send();
+	});
 	
-	var service = Ti.Android.currentService;
-	var serviceIntent = service.getIntent();
-	var teststring = serviceIntent.getStringExtra('message');
-	Ti.API.info('EXTRA: ' + teststring);
-	Ti.Android.stopService(serviceIntent);
+	//Ti.Android.stopService(service);
 }

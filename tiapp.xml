@@ -51,8 +51,7 @@
     	<services>
     		<service url="service/service.js" type="interval"/>
     	</services>
-    </android>
-    
+    </android>    
     <mobileweb>
         <precache/>
         <splash>

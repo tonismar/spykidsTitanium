@@ -85,27 +85,23 @@ exports.launch = function() {
 		var Ocorrencia = new win(ocorrencias[e.rowData.id]);
 		Ocorrencia.open();
 	});
-	
-	app.addEventListener('open', function(e) {
-		var now = new Date().getTime();
-		var delta = new Date( now + (SECS * 1000));
-		var deltaMS = delta - now;
 		
-		var intent = Ti.Android.createServiceIntent({
-			url: 'service/service.js'
-		});
-		intent.putExtra('interval', SECS * 1000);
-		intent.putExtra('message', 'Testing...');
-		Ti.Android.startService(intent);
-	});
-	
 	client.setTimeout(30000);
 	client.open('GET', 'http://spykids-tonismar.rhcloud.com/list.php?list=new');
 	
 	/* url acesso local, necessita editar 
-	 o arquivo /etc/hosts do emulardor */
-	client.open('GET', 'http://spykids.local/list.php?list=new');
+	 o arquivo /etc/hosts do emulardor 
+	client.open('GET', 'http://spykids.local/list.php?list=new'); */
 	client.send();
+	
+	var intent = Ti.Android.createServiceIntent({
+		url : 'service/service.js'
+	});
+	
+	intent.putExtra('interval', 30000);
+	var service = Ti.Android.createService(intent);
+	service.start();	
+	
 	app.open();
 };
 
