@@ -25,11 +25,10 @@ if (!Ti.App.Properties.hasProperty('notificationCount')) {
 		contentIntent: pending,
 		contentTitle: 'Spykdis',
 		contentText: 'Novas occ. encontradas.',
-		when: new Date().getTime(),
 		flags: Ti.Android.ACTION_DEFAULT | Ti.Android.FLAG_AUTO_CANCEL | Ti.Android.FLAG_SHOW_LIGHTS
 	});
 	
-	service.addEventListener('resume', function(e) {
+//	service.addEventListener('resume', function(e) {
 		var client = Ti.Network.createHTTPClient();
 		client.onerror = function(e) {
 			notification.setContentText('Erro ao recuperar ocorrências');
@@ -47,7 +46,8 @@ if (!Ti.App.Properties.hasProperty('notificationCount')) {
 		
 		client.open('GET', 'http://spykids-tonismar.rhcloud.com/list.php?list=new');
 		client.send();
-	});
-	
-	//Ti.Android.stopService(service);
+		
+		var serviceIntent = service.getIntent();
+		Ti.Android.stopService(serviceIntent);
+//	});	
 }

@@ -4,13 +4,15 @@ exports.launch = function() {
 	var SECS = 4;
 	var data = [];
 	var defaultFontSize = Ti.Platform.name == 'android' ? 16 : 14;
+	var app = Ti.UI.createWindow({
+		title: 'SpyKids'
+	});
+	
 	var tableView = Ti.UI.createTableView({
 		backgroundColor: 'transparent',
 		headerTitle: 'Ocorrências'
 	});
-	var app = Ti.UI.createWindow({
-		title: 'SpyKids'
-	});
+		
 	var client = Ti.Network.createHTTPClient();
 	var ocorrencias = [];
 	
@@ -98,9 +100,9 @@ exports.launch = function() {
 		url : 'service/service.js'
 	});
 	
-	intent.putExtra('interval', 30000);
+	intent.putExtra('interval', 15000);
 	var service = Ti.Android.createService(intent);
-	service.start();	
+	service.start();
 	
 	app.open();
 };
