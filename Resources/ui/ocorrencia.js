@@ -62,10 +62,8 @@ function ocorrencia(occ) {
 		update.onload = function() {
 			var json = JSON.parse(this.responseText);
 			if (json.ocorrencias = 'Success') {
-				alert('Ocorrência visualizada.');
 				self.close();
-				var app = require('/ui/list');
-				app.launch();
+				alert('Ocorrência visualizada.');
 			};
 		};
 		
@@ -74,9 +72,9 @@ function ocorrencia(occ) {
 	});	
 	
 	self.addEventListener('blur', function(e) {
-		var app = require('/ui/list');
-		app.launch();
+		self.close();
 	});
+	
 	return self;
 }
 

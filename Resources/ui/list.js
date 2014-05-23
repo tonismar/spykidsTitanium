@@ -89,7 +89,7 @@ exports.launch = function() {
 		tableView.addEventListener('click', function(e) {
 			var win = require('ui/ocorrencia');
 			var Ocorrencia = new win(ocorrencias[e.rowData.id]);
-			app.close();
+			//app.close();
 			Ocorrencia.open();
 		});
 			
@@ -109,9 +109,10 @@ exports.launch = function() {
 	});
 	
 	/* Inicializa o serviço e verifica de 30 em 30 segundos */
-	intent.putExtra('interval', 30000);
+	intent.putExtra('interval', 45000);
 	var service = Ti.Android.createService(intent);
 	service.start();
+	
 	app.open();
 };
 
