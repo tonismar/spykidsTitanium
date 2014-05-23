@@ -10,7 +10,7 @@ function ocorrencia(occ) {
 		width : 150,
 		top : 4,
 		left : 80,
-		image : 'http://spykids.bl.ee/img/' + occ.getImagem()
+		image : 'http://spykids-tonismar.rhcloud.com/img/' + occ.getImagem()
 	});
 	
 	var user = Ti.UI.createLabel({
@@ -62,8 +62,10 @@ function ocorrencia(occ) {
 		update.onload = function() {
 			var json = JSON.parse(this.responseText);
 			if (json.ocorrencias = 'Success') {
-				self.close();
 				alert('Ocorrência visualizada.');
+				self.close();
+				var app = require('/ui/list');
+				app.launch();
 			};
 		};
 		
@@ -71,6 +73,10 @@ function ocorrencia(occ) {
 		update.send();
 	});	
 	
+	self.addEventListener('blur', function(e) {
+		var app = require('/ui/list');
+		app.launch();
+	});
 	return self;
 }
 
