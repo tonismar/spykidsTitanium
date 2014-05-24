@@ -18,6 +18,7 @@ function ocorrencia(occ) {
 		image : 'http://spykids-tonismar.rhcloud.com/img/' + occ.getImagem()
 	});
 	
+/*
 	var user = Ti.UI.createLabel({
 		text : occ.getUser(),
 		top : 160,
@@ -25,6 +26,7 @@ function ocorrencia(occ) {
 		textAlign : 'center',
 		font : { fontWeight: 'bold' }
 	});
+*/
 	
 	var detail = Ti.UI.createLabel({
 		text: formatDate(occ.getDia()) + ' - ' + occ.getHora(),
@@ -51,7 +53,6 @@ function ocorrencia(occ) {
 	});
 	
 	view.add(avatar);
-	view.add(user);
 	view.add(detail);
 	view.add(message);
 	view.add(btn);

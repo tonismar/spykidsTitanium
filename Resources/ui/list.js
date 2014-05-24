@@ -62,12 +62,14 @@ exports.launch = function() {
 					id: i
 				});
 				
-				var user = Ti.UI.createLabel({
-					text: strUser.text + json.ocorrencias[i].user,
+				var avatar = Ti.UI.createImageView({
+					height: 20,
+					width: 20,
 					left: 4,
-					top: 1
+					top: 2,
+					image: 'http://spykids-tonismar.rhcloud.com/img/' + json.ocorrencias[i].imagem					
 				});
-				row.add(user);
+				row.add(avatar);
 	
 				var dia = Ti.UI.createLabel({
 					text: strDia.text + formatDate(json.ocorrencias[i].dia),
