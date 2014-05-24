@@ -25,7 +25,8 @@ if (!Ti.App.Properties.hasProperty('notificationCount')) {
 		contentIntent: pending,
 		contentTitle: 'Spykdis',
 		contentText: 'Novas ocorrências encontradas.',
-		flags: Ti.Android.ACTION_DEFAULT | Ti.Android.FLAG_AUTO_CANCEL | Ti.Android.FLAG_SHOW_LIGHTS
+		flags: Ti.Android.ACTION_DEFAULT | Ti.Android.FLAG_AUTO_CANCEL | Ti.Android.FLAG_SHOW_LIGHTS,
+		defaults: Ti.Android.NotificationManager.DEFAULT_SOUND | Ti.Android.NotificationManager.DEFAULT_VIBRATE
 	});
 	
 

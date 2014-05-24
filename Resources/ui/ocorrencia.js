@@ -1,8 +1,13 @@
 function ocorrencia(occ) {
+	
 	var self = Ti.UI.createWindow({
 		orientation: 'vertical',
-		title: 'SpyKids'
+		title: 'SpyKids',
+		modal: true
 	});
+	
+	//self = Ti.UI.currentWindow;
+	
 	var view = Ti.UI.createView();
 	
 	var avatar = Ti.UI.createImageView({
@@ -69,13 +74,20 @@ function ocorrencia(occ) {
 		
 		update.open('GET', 'http://spykids-tonismar.rhcloud.com/list.php?update=' + occ.getId());
 		update.send();
-	});	
+		
+		if (update.getReadyState == 'DONE') self.close();
+		
+	});
 	
-	self.addEventListener('blur', function(e) {
+	self.addEventListener('blur', function() {
 		self.close();
 	});
 	
-	return self;
+	self.addEventListener('androidback', function() {
+		self.close();
+	});	
+	
+	return self;	
 }
 
 module.exports = ocorrencia;

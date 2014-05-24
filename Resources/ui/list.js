@@ -4,6 +4,7 @@ exports.launch = function() {
 		title: 'SpyKids'
 	});
 	
+	var isOpened = false;
 	var SECS = 4;
 	var data = [];
 	var defaultFontSize = Ti.Platform.name == 'android' ? 16 : 14;
@@ -19,6 +20,9 @@ exports.launch = function() {
 	client.onerror = function(e) {
 		alert('Error ao recuperar ocorrências: ' + e.error);
 	};
+	
+	var win = require('ui/ocorrencia');
+
 	
 	/* Cada vez que esta tela receber o foco ela atualiza as informações de ocorrência */
 	app.addEventListener('focus', function(e) {
@@ -87,10 +91,8 @@ exports.launch = function() {
 		
 		/* Ao clicar em um item da lista chama a tela de detalhes da ocorrência */
 		tableView.addEventListener('click', function(e) {
-			var win = require('ui/ocorrencia');
-			var Ocorrencia = new win(ocorrencias[e.rowData.id]);
-			//app.close();
-			Ocorrencia.open();
+			var ocorrencia = new win(ocorrencias[e.rowData.id]);
+			ocorrencia.open();
 		});
 			
 		client.setTimeout(30000);

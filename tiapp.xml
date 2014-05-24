@@ -51,6 +51,9 @@
         <services>
             <service type="interval" url="service/service.js"/>
         </services>
+        <manifest>
+        	<uses-Permission android:name="android.permission.VIBRATE"></uses-Permission>
+        </manifest>
     </android>
     <mobileweb>
         <precache/>
